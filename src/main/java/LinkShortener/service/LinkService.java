@@ -2,6 +2,7 @@ package LinkShortener.service;
 
 import LinkShortener.dto.CreateLinkRequest;
 import LinkShortener.entity.Link;
+import LinkShortener.exception.LinkNotFoundException;
 import LinkShortener.repository.LinkRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +13,15 @@ public class LinkService {
 
     private LinkRepository linkRepository;
 
+
     public LinkService(LinkRepository linkRepository) {
         this.linkRepository = linkRepository;
+    }
+
+
+    public Link getLink(String shortCode) {
+        return linkRepository.findByShortCode(shortCode)
+                .orElseThrow(() -> new LinkNotFoundException());
     }
 
 
@@ -30,7 +38,6 @@ public class LinkService {
         link.setShortCode(shortCode);
         return linkRepository.save(link);
     }
-
 
 
     private String generateShortCode(){
