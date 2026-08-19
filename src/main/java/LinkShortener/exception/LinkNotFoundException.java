@@ -1,8 +1,14 @@
 package LinkShortener.exception;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
-@ResponseStatus(HttpStatus.NOT_FOUND)
 public class LinkNotFoundException extends RuntimeException {
+
+    private String shortCode;
+
+    public LinkNotFoundException(String shortCode) {
+        this.shortCode = shortCode;
+    }
+
+    public String getShortCode() {
+        return shortCode;
+    }
 }

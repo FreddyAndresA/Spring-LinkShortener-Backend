@@ -21,7 +21,7 @@ public class LinkService {
 
     public Link getLink(String shortCode) {
         return linkRepository.findByShortCode(shortCode)
-                .orElseThrow(() -> new LinkNotFoundException());
+                .orElseThrow(() -> new LinkNotFoundException(shortCode));
     }
 
 
