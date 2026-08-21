@@ -1,6 +1,7 @@
 package LinkShortener.service;
 
 import LinkShortener.dto.CreateLinkRequest;
+import LinkShortener.dto.CreateLinkResponse;
 import LinkShortener.entity.Link;
 import LinkShortener.exception.LinkNotFoundException;
 import LinkShortener.repository.LinkRepository;
@@ -25,7 +26,7 @@ public class LinkService {
     }
 
 
-    public Link saveLink(CreateLinkRequest createLinkRequest) {
+    public CreateLinkResponse saveLink(CreateLinkRequest createLinkRequest) {
 
         String shortCode = generateShortCode();
         while (linkRepository.existsByShortCode(shortCode)) {
@@ -36,7 +37,9 @@ public class LinkService {
         Link link = new Link();
         link.setOriginalUrl(originalUrl);
         link.setShortCode(shortCode);
-        return linkRepository.save(link);
+        linkRepository.save(link);
+
+        return new CreateLinkResponse(shortCode);
     }
 
 

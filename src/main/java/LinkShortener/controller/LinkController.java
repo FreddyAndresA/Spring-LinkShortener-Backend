@@ -1,6 +1,7 @@
 package LinkShortener.controller;
 
 import LinkShortener.dto.CreateLinkRequest;
+import LinkShortener.dto.CreateLinkResponse;
 import LinkShortener.entity.Link;
 import LinkShortener.service.LinkService;
 import jakarta.validation.Valid;
@@ -31,7 +32,7 @@ public class LinkController {
 
 
     @PostMapping("/links")
-    public Link createLink(@Valid @RequestBody CreateLinkRequest createLinkRequest) {
+    public CreateLinkResponse createLink(@Valid @RequestBody CreateLinkRequest createLinkRequest) {
         return linkService.saveLink(createLinkRequest);
     }
 
