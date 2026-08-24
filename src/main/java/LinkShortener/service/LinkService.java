@@ -45,9 +45,7 @@ public class LinkService {
 
 
     public void deleteLink(String shortCode) {
-        Link link = linkRepository.findByShortCode(shortCode)
-                .orElseThrow(() -> new LinkNotFoundException(shortCode));
-
+        Link link = getLink(shortCode);
         linkRepository.delete(link);
     }
 
