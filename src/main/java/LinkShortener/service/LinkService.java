@@ -7,12 +7,13 @@ import LinkShortener.exception.LinkNotFoundException;
 import LinkShortener.repository.LinkRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 @Service
 public class LinkService {
 
-    private LinkRepository linkRepository;
+    private final SecureRandom random = new SecureRandom();
+    private final LinkRepository linkRepository;
 
 
     public LinkService(LinkRepository linkRepository) {
@@ -45,15 +46,14 @@ public class LinkService {
 
     private String generateShortCode(){
         final String characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        Random random = new Random();
-        String shortCode = "";
+        StringBuilder shortCode = new StringBuilder();
 
         for (int i = 0; i < 6; i++) {
             int number = random.nextInt(characters.length());
-            shortCode += characters.charAt(number);
+            shortCode.append(characters.charAt(number));
         }
 
-        return shortCode;
+        return shortCode.toString();
     }
 
 }
