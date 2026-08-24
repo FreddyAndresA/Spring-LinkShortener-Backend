@@ -44,6 +44,14 @@ public class LinkService {
     }
 
 
+    public void deleteLink(String shortCode) {
+        Link link = linkRepository.findByShortCode(shortCode)
+                .orElseThrow(() -> new LinkNotFoundException(shortCode));
+
+        linkRepository.delete(link);
+    }
+
+
     private String generateShortCode(){
         final String characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
         StringBuilder shortCode = new StringBuilder();

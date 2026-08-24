@@ -10,9 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/links")
 public class LinkController {
 
-    private LinkService linkService;
+    private final LinkService linkService;
 
 
     public LinkController(LinkService linkService) {
@@ -31,9 +32,18 @@ public class LinkController {
     }
 
 
-    @PostMapping("/links")
+    @PostMapping
     public CreateLinkResponse createLink(@Valid @RequestBody CreateLinkRequest createLinkRequest) {
         return linkService.saveLink(createLinkRequest);
     }
 
+
+    @DeleteMapping("/{shortCode}")
+    public ResponseEntity<Void> deleteLink(@PathVariable("shortCode") String shortCode) {
+        linkService.deleteLink(shortCode);
+
+        return ResponseEntity
+            .status(HttpStatus.NO_CONTENT)
+                .build();
+    }
 }
