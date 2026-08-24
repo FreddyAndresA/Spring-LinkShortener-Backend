@@ -14,7 +14,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(LinkNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleLinkNotFound(LinkNotFoundException exception) {
         String message = "Link with short code '" + exception.getShortCode() + "' was not found";
-        ErrorResponse errorResponse = new ErrorResponse(404, message, ErrorType.LINK_NOT_FOUND);
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND.value(), message, ErrorType.LINK_NOT_FOUND);
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(errorResponse);
@@ -29,7 +29,7 @@ public class GlobalExceptionHandler {
         var error = errors.get(0);
         String message = error.getField() + ": " + error.getDefaultMessage();
 
-        ErrorResponse errorResponse = new ErrorResponse(400, message, ErrorType.VALIDATION_ERROR);
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST.value(), message, ErrorType.VALIDATION_ERROR);
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(errorResponse);
