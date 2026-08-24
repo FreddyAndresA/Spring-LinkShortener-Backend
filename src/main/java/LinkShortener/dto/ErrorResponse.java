@@ -1,21 +1,22 @@
 package LinkShortener.dto;
 
 import LinkShortener.exception.ErrorType;
+import org.springframework.http.HttpStatus;
 
 public class ErrorResponse {
 
-    private int status;
+    private HttpStatus status;
     private String message;
     private ErrorType errorType;
 
-    public ErrorResponse(int status, String message, ErrorType errorType) {
+    public ErrorResponse(HttpStatus status, String message, ErrorType errorType) {
         this.status = status;
         this.message = message;
         this.errorType = errorType;
     }
 
     public int getStatus() {
-        return status;
+        return status.value();
     }
 
     public String getMessage() {
